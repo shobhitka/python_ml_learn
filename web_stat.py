@@ -46,11 +46,13 @@ def plot_model_order_n(n, x, y):
     else:
         linecolor="orange"
 
-    plt.plot(fx, fn(fx), color=linecolor, linewidth=4)
-    plt.legend(["d=%i" % fn.order], loc="upper left")
+    plt.plot(fx, fn(fx), color=linecolor, linewidth=4, label=str(n))
+    plt.legend(loc="upper left")
 
 plot_data(x, y)
 plot_model_order_n(1, x, y)
 plot_model_order_n(2, x, y)
+plot_model_order_n(3, x, y)
+plot_model_order_n(10, x, y)
 
 plt.show()
