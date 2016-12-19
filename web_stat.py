@@ -26,16 +26,31 @@ def plot_data(x, y):
 def error(f, x, y):
     return sp.sum((f(x) - y)**2)
 
-def plot_model_linear(x, y):
-    # Polyfit with linear model: order=1
-    fp1 = sp.polyfit(x, y, 1)
-    f1 = sp.poly1d(fp1)
-    print ("Linear Model parameters: %s, error: %s" % (fp1, str(error(f1, x, y))))
+def plot_model_order_n(n, x, y):
+    fpn = sp.polyfit(x, y, n)
+    fn = sp.poly1d(fpn)
+    print("Order %d model error: %f" % (n, error(fn, x, y)))
 
     fx = sp.linspace(0, x[-1], 1000)
-    plt.plot(fx, f1(fx), color="red", linewidth=4)
-    plt.legend(["d=%i" % f1.order], loc="upper left")
+
+    if n == 1:
+        linecolor="red"
+    elif n == 2:
+        linecolor="black"
+    elif n == 3:
+        linecolor="green"
+    elif n == 10:
+        linecolor="violet"
+    elif n == 100:
+        linecolor="cyan"
+    else:
+        linecolor="orange"
+
+    plt.plot(fx, fn(fx), color=linecolor, linewidth=4)
+    plt.legend(["d=%i" % fn.order], loc="upper left")
 
 plot_data(x, y)
-plot_model_linear(x, y)
+plot_model_order_n(1, x, y)
+plot_model_order_n(2, x, y)
+
 plt.show()
